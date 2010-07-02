@@ -1,0 +1,5 @@
+AcceptPathInfo On
+Options +FollowSymLinks
+RewriteEngine On
+RewriteCond $1 !^(home\.php|static)
+RewriteRule (.*) home.php/$1 [L,QSA]
