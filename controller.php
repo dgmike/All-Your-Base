@@ -95,6 +95,17 @@ class Update
         if (!(int) $since_id) {
             unset($since_id);
         }
+
+        $valid = array('statuses/home_timeline', 'statuses/mentions', 'favorites', 'statuses/retweeted_by_me', 'statuses/retweeted_to_me', 'direct_messages', 'direct_messages/sent');
+
+        if (!isset($_POST['use']) || !in_array($_POST['use'], $valid) &&
+            !preg_match('@^'.$_SESSION['access_token']['screen_name'].'/lists/\w+/statuses$@', $_POST['use'])
+        ) {
+          return;
+        }
+
+        
+
         $timeline = $connection->get( $_POST['use'], compact('since_id') );
         if ($timeline) {
             foreach($timeline as $item) {
